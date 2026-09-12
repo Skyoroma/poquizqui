@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Service PHP (Symfony + Symfony CLI)
+  php:
+    image: php:8.3-fpm
+    container_name: symfony_php
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8000:8000"  # Port pour symfony serve
+    networks:
+      - symfony_network
+    environment:
+      - APP_ENV=dev
+    depends_on:
+      - mysql
+    command: sh -c "apt-get update && apt-get install -y wget unzip && \
+                    wget https://get.symfony.com/cli/installer -O - | bash && \
+                    export PATH=\"$PATH:$HOME/.symfony5/bin\" && \
+                    tail -f /dev/null"  # Garde le conteneur actif
+
+  # Service MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: symfony_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - symfony_network
+    ports:
+      - "3306:3306"
+
+# Réseau Docker
+networks:
+  symfony_network:
+    driver: bridge
+
+# Volume pour MySQL
+volumes:
+  mysql_data:
