@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class QuizController extends AbstractController
 {
-    // Affiche une question au hasard
+
     #[Route('/quiz', name: 'quiz_index', methods: ['GET'])]
     public function index(QuestionRepository $questionRepository): Response
     {
@@ -22,7 +22,6 @@ class QuizController extends AbstractController
         ]);
     }
 
-    // Reçoit la réponse du joueur et la vérifie
     #[Route('/quiz/{id}/repondre', name: 'quiz_repondre', methods: ['POST'])]
     public function repondre(Question $question, Request $request): Response
     {
