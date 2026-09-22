@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
-use App\Repository\QuestionRepository;
+use App\Repository\CategorieRepository;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategorieController extends AbstractController
 {
     #[Route('/categorie', name: 'categorie', methods: ['GET'])]
-    public function categorie(QuestionRepository $questionRepository)
+    public function categorie(CategorieRepository $categorieRepository): Response
     {
-        $categorie = $questionRepository->getCategorie();
+        $categorie = $categorieRepository->findAll();
 
-        return $this->render('Categorie/index.html.twig', [
+        return $this->render('categorie/index.html.twig', [
             'categorie' => $categorie,
         ]);
     }
