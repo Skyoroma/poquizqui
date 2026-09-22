@@ -1,6 +1,6 @@
 <h1>Categorie</h1>
 <ul>
     {% for categorie in categories %}
-        <li>{{ categorie.nom }}</li>
+        <li>{{ categorie.nom }} ({{ categorie.questions|length }} questions)</li>
     {% endfor %}
 </ul>
