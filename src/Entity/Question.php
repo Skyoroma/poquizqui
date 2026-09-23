@@ -14,11 +14,11 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?bool $reponse = null;
-
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $question = null;
+    private ?string $libelle = null;
+
+    #[ORM\Column]
+    private ?bool $estVraie = null;
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,26 +29,26 @@ class Question
         return $this->id;
     }
 
-    public function isReponse(): ?bool
+    public function getLibelle(): ?string
     {
-        return $this->reponse;
+        return $this->libelle;
     }
 
-    public function setReponse(bool $reponse): static
+    public function setLibelle(string $libelle): static
     {
-        $this->reponse = $reponse;
+        $this->libelle = $libelle;
 
         return $this;
     }
 
-    public function getQuestion(): ?string
+    public function isEstVraie(): ?bool
     {
-        return $this->question;
+        return $this->estVraie;
     }
 
-    public function setQuestion(string $question): static
+    public function setEstVraie(bool $estVraie): static
     {
-        $this->question = $question;
+        $this->estVraie = $estVraie;
 
         return $this;
     }
