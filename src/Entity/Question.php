@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\QuestionRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
@@ -13,22 +14,53 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $libelle = null;
+
     #[ORM\Column]
-    private ?bool $reponse = null;
+    private ?bool $estVraie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'questions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function isReponse(): ?bool
+    public function getLibelle(): ?string
     {
-        return $this->reponse;
+        return $this->libelle;
     }
 
-    public function setReponse(bool $reponse): static
+    public function setLibelle(string $libelle): static
     {
-        $this->reponse = $reponse;
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function isEstVraie(): ?bool
+    {
+        return $this->estVraie;
+    }
+
+    public function setEstVraie(bool $estVraie): static
+    {
+        $this->estVraie = $estVraie;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

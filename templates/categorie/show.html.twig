@@ -1,0 +1,12 @@
+<h1>{{ categorie.nom }}</h1>
+
+<ul>
+    {% for question in categorie.questions %}
+        <li>
+            {{ question.libelle }} —
+            {% if question.estVraie %}Vrai{% else %}Faux{% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="{{ path('categorie_index') }}">Retour aux catégories</a>
