@@ -1,0 +1,10 @@
+{% if estCorrect %}
+    <h1>Bravo, c'est correct !</h1>
+{% else %}
+    <h1>Raté...</h1>
+{% endif %}
+
+<p>{{ question.libelle }}</p>
+<p>La bonne réponse était : {% if question.estVraie %}Vrai{% else %}Faux{% endif %}</p>
+
+<a href="{{ path('jeu') }}">Question suivante</a>

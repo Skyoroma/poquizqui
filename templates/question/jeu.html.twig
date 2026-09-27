@@ -1,5 +1,11 @@
 {% if question %}
     <h1>{{ question.libelle }}</h1>
+
+    <form action="{{ path('jeu_reponse') }}" method="post">
+        <input type="hidden" name="questionId" value="{{ question.id }}">
+        <button type="submit" name="reponse" value="1">Vrai</button>
+        <button type="submit" name="reponse" value="0">Faux</button>
+    </form>
 {% else %}
     <p>Aucune question disponible.</p>
 {% endif %}
