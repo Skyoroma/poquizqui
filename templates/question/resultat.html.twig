@@ -1,10 +1,31 @@
-{% if estCorrect %}
-    <h1>Bravo, c'est correct !</h1>
-{% else %}
-    <h1>Raté...</h1>
-{% endif %}
+{% extends 'base.html.twig' %}
 
-<p>{{ question.libelle }}</p>
-<p>La bonne réponse était : {% if question.estVraie %}Vrai{% else %}Faux{% endif %}</p>
+{% block title %}Résultat{% endblock %}
 
-<a href="{{ path('jeu') }}">Question suivante</a>
+{% block body %}
+    <div class="verdict">
+        {% if estCorrect %}
+            <span class="emoji">✅</span>
+            <h1 class="gagne">Bien joué&nbsp;!</h1>
+        {% else %}
+            <span class="emoji">❌</span>
+            <h1 class="perdu">Raté&nbsp;!</h1>
+        {% endif %}
+    </div>
+
+    <div class="enonce">
+        {{ question.libelle }}
+        <p class="sous-titre" style="margin-top:1rem">
+            La bonne réponse était
+            <span class="badge {{ question.estVraie ? 'badge-vrai' : 'badge-faux' }}">
+                {{ question.estVraie ? 'Vrai' : 'Faux' }}
+            </span>
+        </p>
+    </div>
+
+    <div class="boutons">
+        <button type="button" onclick="location.href='{{ path('jeu') }}'">Question suivante →</button>
+    </div>
+
+    <a class="retour" href="{{ path('categorie_index') }}">← Les catégories</a>
+{% endblock %}

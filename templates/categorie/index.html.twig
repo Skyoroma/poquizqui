@@ -1,11 +1,21 @@
-<h1>Les catégories</h1>
-<ul>
-    {% for categorie in categories %}
-        <li>
-            <a href="{{ path('categorie_show', {id: categorie.id}) }}">
-                {{ categorie.nom }}
-            </a>
-            ({{ categorie.questions|length }} questions)
-        </li>
-    {% endfor %}
-</ul>
+{% extends 'base.html.twig' %}
+
+{% block title %}Les catégories{% endblock %}
+
+{% block body %}
+    <h1>Les catégories</h1>
+    <p class="sous-titre">Choisis un thème ou lance une partie au hasard.</p>
+
+    <ul class="liste">
+        {% for categorie in categories %}
+            <li class="carte carte-lien">
+                <a href="{{ path('categorie_show', {id: categorie.id}) }}">{{ categorie.nom }}</a>
+                <span class="badge">{{ categorie.questions|length }} questions</span>
+            </li>
+        {% else %}
+            <li class="vide">Aucune catégorie pour le moment.</li>
+        {% endfor %}
+    </ul>
+
+    <a class="retour" href="{{ path('jeu') }}">→ Jouer</a>
+{% endblock %}

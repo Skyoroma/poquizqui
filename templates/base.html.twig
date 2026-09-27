@@ -1,24 +1,102 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Quiz Vrai ou Faux{% endblock %}</title>
+    <style>
+        :root {
+            --fond: #14131a;
+            --carte: #1e1d27;
+            --bord: #2e2d3b;
+            --texte: #e8e7ef;
+            --doux: #9c9ab0;
+            --accent: #7c6cf0;
+            --vert: #3fb984;
+            --rouge: #e8615f;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            background: var(--fond);
+            color: var(--texte);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            padding: 3rem 1rem;
+            min-height: 100vh;
+        }
+        main { width: 100%; max-width: 640px; }
+        h1 { font-size: 1.8rem; margin-bottom: .5rem; letter-spacing: -.02em; }
+        .sous-titre { color: var(--doux); margin-bottom: 2rem; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+        .liste { list-style: none; display: grid; gap: .75rem; }
+        .carte {
+            background: var(--carte);
+            border: 1px solid var(--bord);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            transition: border-color .15s, transform .15s;
+        }
+        .carte-lien { display: flex; justify-content: space-between; align-items: center; }
+        .carte-lien:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .carte-lien a { color: var(--texte); font-weight: 600; }
+        .carte-lien a:hover { text-decoration: none; }
 
-        {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphp_hot_reload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
+        .badge {
+            background: var(--bord);
+            color: var(--doux);
+            font-size: .8rem;
+            padding: .15rem .6rem;
+            border-radius: 99px;
+        }
+        .badge-vrai { background: rgba(63,185,132,.15); color: var(--vert); }
+        .badge-faux { background: rgba(232,97,95,.15); color: var(--rouge); }
+
+        .question-liste { display: flex; justify-content: space-between; gap: 1rem; align-items: center; }
+
+        .enonce {
+            background: var(--carte);
+            border: 1px solid var(--bord);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .boutons { display: flex; gap: 1rem; }
+        button {
+            flex: 1;
+            font: inherit;
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--bord);
+            background: var(--carte);
+            color: var(--texte);
+            cursor: pointer;
+            transition: all .15s;
+        }
+        button:hover { transform: translateY(-2px); }
+        .btn-vrai:hover { border-color: var(--vert); color: var(--vert); }
+        .btn-faux:hover { border-color: var(--rouge); color: var(--rouge); }
+
+        .verdict { text-align: center; padding: 2rem 1rem; }
+        .verdict .emoji { font-size: 3rem; display: block; margin-bottom: .5rem; }
+        .gagne { color: var(--vert); }
+        .perdu { color: var(--rouge); }
+
+        .retour { display: inline-block; margin-top: 2rem; color: var(--doux); font-size: .9rem; }
+        .vide { color: var(--doux); text-align: center; padding: 3rem 0; }
+    </style>
+</head>
+<body>
+    <main>
         {% block body %}{% endblock %}
-    </body>
+    </main>
+</body>
 </html>

@@ -1,11 +1,22 @@
-{% if question %}
-    <h1>{{ question.libelle }}</h1>
+{% extends 'base.html.twig' %}
 
-    <form action="{{ path('jeu_reponse') }}" method="post">
-        <input type="hidden" name="questionId" value="{{ question.id }}">
-        <button type="submit" name="reponse" value="1">Vrai</button>
-        <button type="submit" name="reponse" value="0">Faux</button>
-    </form>
-{% else %}
-    <p>Aucune question disponible.</p>
-{% endif %}
+{% block title %}Vrai ou Faux ?{% endblock %}
+
+{% block body %}
+    {% if question %}
+        <h1>Vrai ou Faux&nbsp;?</h1>
+        <p class="sous-titre">{{ question.categorie.nom }}</p>
+
+        <div class="enonce">{{ question.libelle }}</div>
+
+        <form action="{{ path('jeu_reponse') }}" method="post" class="boutons">
+            <input type="hidden" name="questionId" value="{{ question.id }}">
+            <button type="submit" name="reponse" value="1" class="btn-vrai">Vrai</button>
+            <button type="submit" name="reponse" value="0" class="btn-faux">Faux</button>
+        </form>
+
+        <a class="retour" href="{{ path('categorie_index') }}">← Les catégories</a>
+    {% else %}
+        <p class="vide">Aucune question disponible pour le moment.</p>
+    {% endif %}
+{% endblock %}
