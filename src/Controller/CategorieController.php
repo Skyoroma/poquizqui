@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategorieController extends AbstractController
 {
-    #[Route('/categories', name: 'categorie_index', methods: ['GET'])]
+    #[Route('/poquizqui', name: 'poquizqui_index', methods: ['GET'])]
     public function index(CategorieRepository $categorieRepository): Response
     {
         $categories = $categorieRepository->findAll();
@@ -20,7 +20,7 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    #[Route('/categorie/{id}', name: 'categorie_show', methods: ['GET'])]
+    #[Route('/poquizqui/{id}', name: 'poquizqui_show', methods: ['GET'])]
     public function show(Categorie $categorie): Response
     {
         return $this->render('categorie/show.html.twig', [

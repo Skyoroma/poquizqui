@@ -9,7 +9,7 @@
     <ul class="liste">
         {% for categorie in categories %}
             <li class="carte carte-lien">
-                <a href="{{ path('categorie_show', {id: categorie.id}) }}">{{ categorie.nom }}</a>
+                <a href="{{ path('poquizqui_show', {id: categorie.id}) }}">{{ categorie.nom }}</a>
                 <span class="badge">{{ categorie.questions|length }} questions</span>
             </li>
         {% else %}
